@@ -3,16 +3,11 @@ cmake_minimum_required(VERSION 3.22)
 set(PROJECT_NAME faker-cxx)
 project(${PROJECT_NAME} CXX)
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_VERBOSE_MAKEFILE ON)
+include(CheckCXXSourceCompiles)
+set(CMAKE_REQUIRED_FLAGS -std=c++20)
+check_cxx_source_compiles("#include <format>\nint main(){ auto var = std::format(\"{}\", \"Hello\"); return 0; }" HAS_STD_FORMAT)
+unset(CMAKE_REQUIRED_FLAGS)
 
-include(CheckIncludeFileCXX)
-CHECK_INCLUDE_FILE_CXX("format" HAS_STD_FORMAT)
-message(STATUS "HAS_STD_FORMAT: ${HAS_STD_FORMAT}")
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
 option(BUILD_FAKER_TESTS DEFAULT ON)
 
