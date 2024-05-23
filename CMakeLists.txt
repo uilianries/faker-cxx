@@ -7,16 +7,17 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include(CheckIncludeFileCXX)
 CHECK_INCLUDE_FILE_CXX("format" HAS_STD_FORMAT)
+message(STATUS "HAS_STD_FORMAT: ${HAS_STD_FORMAT}")
 
 option(BUILD_FAKER_TESTS DEFAULT ON)
 
-if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /permissive- /bigobj")
-else ()
-    set(CMAKE_CXX_FLAGS
-        "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Wconversion -Wformat -Werror"
-    )
-endif ()
+# if (MSVC)
+#     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /permissive- /bigobj")
+# else ()
+#     set(CMAKE_CXX_FLAGS
+#         "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -Wconversion -Wformat -Werror"
+#     )
+# endif ()
 
 set(LIBRARY_NAME faker-cxx)
 
