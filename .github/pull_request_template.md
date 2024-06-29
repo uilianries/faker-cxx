@@ -3,3 +3,5 @@
 <!-- Please first read https://github.com/cieslarmichal/faker-cxx/blob/main/CONTRIBUTING.md -->
 
 <!-- Help us by writing a correct PR title following this guide: https://github.com/cieslarmichal/faker-cxx/blob/main/CONTRIBUTING.md#committing -->
+
+- [ ] I have read the [Contribution guide](https://github.com/cieslarmichal/faker-cxx/blob/main/CONTRIBUTING.md).
