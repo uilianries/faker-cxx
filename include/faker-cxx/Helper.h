@@ -4,6 +4,8 @@
 #include <numeric>
 #include <span>
 #include <vector>
+#include <stdexcept>
+#include <algorithm>
 
 #include "Number.h"
 
@@ -157,23 +159,13 @@ T weightedArrayElement(const std::vector<WeightedElement<T>>& data)
 
     const std::integral auto targetWeightValue = number::integer<unsigned>(1, sumOfWeights);
 
-    unsigned currentSum = 0;
+    // Find the first element whose cumulative weight is >= targetWeightValue
+    auto it = std::lower_bound(data.begin(), data.end(), targetWeightValue,
+        [](const WeightedElement<T>& element, unsigned target) {
+            return element.weight < target;
+        });
 
-    size_t currentIdx = 0;
-
-    while (currentIdx < data.size())
-    {
-        currentSum += data[currentIdx].weight;
-
-        if (currentSum >= targetWeightValue)
-        {
-            break;
-        }
-
-        currentIdx++;
-    }
-
-    return data.at(currentIdx).value;
+    return it->value;
 }
 
 }

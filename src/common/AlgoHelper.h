@@ -40,12 +40,10 @@ static T::key_type objectKey(const T& object)
         throw std::runtime_error("Object is empty.");
     }
 
-    std::vector<typename T::key_type> keys;
+    std::vector<typename T::key_type> keys(object.size());
 
-    for (const auto& entry : object)
-    {
-        keys.push_back(entry.first);
-    }
+    std::transform(object.begin(), object.end(), keys.begin(),
+        [](const auto& entry) { return entry.first; });
 
     return arrayElement<typename T::key_type>(keys);
 }
