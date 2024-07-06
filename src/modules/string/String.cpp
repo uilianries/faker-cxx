@@ -214,23 +214,25 @@ std::string alphanumeric(unsigned int length, StringCasing casing, const std::st
     const auto& alphanumericCharacters = stringCasingToAlphanumericCharactersMapping.at(casing);
 
     std::string targetCharacters;
+    targetCharacters.reserve(alphanumericCharacters.size());
 
     for (const auto& alphanumericCharacter : alphanumericCharacters)
     {
         if (excludeCharacters.find(alphanumericCharacter) == std::string::npos)
         {
-            targetCharacters += alphanumericCharacter;
+            targetCharacters.push_back(alphanumericCharacter);
         }
     }
 
-    std::string alphanumeric;
+    std::string alphanumericStr;
+    alphanumericStr.reserve(length);
 
     for (unsigned i = 0; i < length; i++)
     {
-        alphanumeric += helper::arrayElement<char>(targetCharacters);
+        alphanumericStr.push_back(helper::arrayElement<char>(targetCharacters));
     }
 
-    return alphanumeric;
+    return alphanumericStr;
 }
 
 std::string alphanumeric(GuaranteeMap&& guarantee, unsigned length, StringCasing casing)
@@ -248,21 +250,22 @@ std::string alphanumeric(GuaranteeMap&& guarantee, unsigned length, StringCasing
 
 std::string numeric(unsigned int length, bool allowLeadingZeros)
 {
-    std::string alphanumeric;
+    std::string alphanumericStr;
+    alphanumericStr.reserve(length);
 
     for (unsigned i = 0; i < length; i++)
     {
         if (i == 0 && allowLeadingZeros)
         {
-            alphanumeric += helper::arrayElement<char>(numericCharacters);
+            alphanumericStr.push_back(helper::arrayElement<char>(numericCharacters));
         }
         else
         {
-            alphanumeric += helper::arrayElement<char>(numericCharactersWithoutZero);
+            alphanumericStr.push_back(helper::arrayElement<char>(numericCharactersWithoutZero));
         }
     }
 
-    return alphanumeric;
+    return alphanumericStr;
 }
 
 std::string numeric(GuaranteeMap&& guarantee, const unsigned length, bool allowLeadingZeros)
